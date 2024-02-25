@@ -1,0 +1,28 @@
+{
+  "name": "employee-generator",
+  "version": "1.0.0",
+  "description": "To generate employee list",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Digita1Panda/employee-generator.git"
+  },
+  "author": "Kwok Law",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Digita1Panda/employee-generator/issues"
+  },
+  "homepage": "https://github.com/Digita1Panda/employee-generator#readme",
+  "dependencies": {
+    "inquirer": "^6.5.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
