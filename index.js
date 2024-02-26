@@ -10,6 +10,17 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
-
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
+const newEmployees = [];
+
+const questions = async () => {
+  const answers = await inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "Please enter the team managers name:",
+    },
+    {},
+  ]);
+};
