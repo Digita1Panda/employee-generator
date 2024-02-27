@@ -1,6 +1,6 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
+const Intern = require("./lib/Intern.js");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
@@ -145,6 +145,9 @@ function listMenu() {
 
 function renderHTML() {
   const generateHTML = render(newEmployees);
+  if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR);
+  }
   fs.writeFileSync(outputPath, generateHTML);
   console.log(`Success! the Team members has been generated to ${outputPath}`);
 }
