@@ -142,3 +142,11 @@ function listMenu() {
       }
     });
 }
+
+function renderHTML() {
+  const generateHTML = render(newEmployees);
+  fs.writeFileSync(outputPath, generateHTML);
+  console.log(`Success! the Team members has been generated to ${outputPath}`);
+}
+
+questionManager();
