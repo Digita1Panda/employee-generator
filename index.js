@@ -14,27 +14,6 @@ const render = require("./src/page-template.js");
 
 const newEmployees = [];
 
-function listMenu() {
-  inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "menu",
-        message: "What would you like to do? Add a team member or create team?",
-        choices: ["Engineer", "Intern", "Create Team"],
-      },
-    ])
-    .then((answers) => {
-      if (answers.menu === "Engineer") {
-        questionEngineer();
-      } else if (answers.menu === "Intern") {
-        questionIntern();
-      } else {
-        renderHTML();
-      }
-    });
-}
-
 function questionManager() {
   inquirer
     .prompt([
@@ -104,5 +83,62 @@ function questionEngineer() {
       );
       newEmployees.push(engineer);
       listMenu();
+    });
+}
+
+function questionIntern() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "Please enter intern's name.",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Please enter intern's ID.",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Please enter intern's email address.",
+      },
+      {
+        type: "input",
+        name: "school",
+        message: "Please enter intern's school.",
+      },
+    ])
+    .then((answers) => {
+      const intern = new Intern(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.school
+      );
+      newEmployees.push(intern);
+      listMenu();
+    });
+}
+
+function listMenu() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "menu",
+        message: "What would you like to do? Add a team member or create team?",
+        choices: ["Engineer", "Intern", "Create Team"],
+      },
+    ])
+    .then((answers) => {
+      if (answers.menu === "Engineer") {
+        questionEngineer();
+      } else if (answers.menu === "Intern") {
+        questionIntern();
+      } else {
+        renderHTML();
+      }
     });
 }
