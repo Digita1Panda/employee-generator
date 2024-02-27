@@ -14,13 +14,59 @@ const render = require("./src/page-template.js");
 
 const newEmployees = [];
 
-const questions = async () => {
-  const answers = await inquirer.prompt([
-    {
-      type: "input",
-      name: "name",
-      message: "Please enter the team managers name:",
-    },
-    {},
-  ]);
-};
+function questionManager() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "Please enter team manager's name.",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Please enter the manager's ID.",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Please enter the manager's email address.",
+      },
+      {
+        type: " input",
+        name: "officeNumber",
+        message: "Please enter the manager's office number.",
+      },
+    ])
+    .then((answers) => {
+      const manager = new Manager(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.officeNumber
+      );
+      newEmployees.push(manager);
+      listMenu();
+    });
+}
+
+function listMenu() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "menu",
+        message: "What would you like to do? Add a team member or create team?",
+        choices: ["Engineer", "Intern", "Create Team"],
+      },
+    ])
+    .then((answers) => {
+      if (answers.menu === "Engineer") {
+        questionEngineer();
+      } else if (answers.menu === "Intern") {
+        questionIntern();
+      } else {
+        renderHTML();
+      }
+    });
+}
