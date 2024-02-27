@@ -12,8 +12,10 @@ const render = require("./src/page-template.js");
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
+// Array to store new team members
 const newEmployees = [];
 
+// Function for manager role
 function questionManager() {
   inquirer
     .prompt([
@@ -39,17 +41,21 @@ function questionManager() {
       },
     ])
     .then((answers) => {
+      // Create new object manager
       const manager = new Manager(
         answers.name,
         answers.id,
         answers.email,
         answers.officeNumber
       );
+      //  Pushes the newly made object into the array
       newEmployees.push(manager);
+      //   Runs the menu again
       listMenu();
     });
 }
 
+// Function for engineer role
 function questionEngineer() {
   inquirer
     .prompt([
@@ -75,17 +81,21 @@ function questionEngineer() {
       },
     ])
     .then((answers) => {
+      // Create new object engineer
       const engineer = new Engineer(
         answers.name,
         answers.id,
         answers.email,
         answers.github
       );
+      //  Pushes the newly made object into the array
       newEmployees.push(engineer);
+      //   Runs the menu again
       listMenu();
     });
 }
 
+// Function for intern role
 function questionIntern() {
   inquirer
     .prompt([
@@ -111,17 +121,21 @@ function questionIntern() {
       },
     ])
     .then((answers) => {
+      // Create new object intern
       const intern = new Intern(
         answers.name,
         answers.id,
         answers.email,
         answers.school
       );
+      //  Pushes the newly made object into the array
       newEmployees.push(intern);
+      //   Runs the menu again
       listMenu();
     });
 }
 
+// Lets the user select options in the menu
 function listMenu() {
   inquirer
     .prompt([
@@ -133,23 +147,29 @@ function listMenu() {
       },
     ])
     .then((answers) => {
+      // To call the right function based on user input
       if (answers.menu === "Engineer") {
         questionEngineer();
       } else if (answers.menu === "Intern") {
         questionIntern();
       } else {
+        // Run the renderHTML function to generate it all and put it into folder
         renderHTML();
       }
     });
 }
 
+// Passes through the answers into the render and generates the HTML
 function renderHTML() {
   const generateHTML = render(newEmployees);
+  //   Checks to see if current folder exits if not it will make that folder
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR);
   }
+  //   Writes the HTML to the specified output fole
   fs.writeFileSync(outputPath, generateHTML);
   console.log(`Success! the Team members has been generated to ${outputPath}`);
 }
 
+// Runs the function to start off.
 questionManager();
