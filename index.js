@@ -14,6 +14,27 @@ const render = require("./src/page-template.js");
 
 const newEmployees = [];
 
+function listMenu() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "menu",
+        message: "What would you like to do? Add a team member or create team?",
+        choices: ["Engineer", "Intern", "Create Team"],
+      },
+    ])
+    .then((answers) => {
+      if (answers.menu === "Engineer") {
+        questionEngineer();
+      } else if (answers.menu === "Intern") {
+        questionIntern();
+      } else {
+        renderHTML();
+      }
+    });
+}
+
 function questionManager() {
   inquirer
     .prompt([
@@ -50,23 +71,38 @@ function questionManager() {
     });
 }
 
-function listMenu() {
+function questionEngineer() {
   inquirer
     .prompt([
       {
-        type: "list",
-        name: "menu",
-        message: "What would you like to do? Add a team member or create team?",
-        choices: ["Engineer", "Intern", "Create Team"],
+        type: "input",
+        name: "name",
+        message: "Please enter engineer's name.",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Please enter engineer's ID.",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Please enter engineer's email address.",
+      },
+      {
+        type: "input",
+        name: "github",
+        message: "Please enter engineer's GitHub username.",
       },
     ])
     .then((answers) => {
-      if (answers.menu === "Engineer") {
-        questionEngineer();
-      } else if (answers.menu === "Intern") {
-        questionIntern();
-      } else {
-        renderHTML();
-      }
+      const engineer = new Engineer(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.github
+      );
+      newEmployees.push(engineer);
+      listMenu();
     });
 }
